@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body{
+      background-image: url('landscape-7901065.jpg');
+      background-size: cover;
+      background-position: center;
+     
+    }
+    .container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; 
+      flex-direction: column; /* Stack items vertically */
+      border: 1px solid black;
+    }
+  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Pomodoro Timer</h1><br>
+    
+   
+        <h1 class="timer" id="timer">25:00</h1><br>
+        <div class="button-wrapper">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

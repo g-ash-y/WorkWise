@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#todo-container {
+    color:white;
+    width: 600px;
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+}
+
+.task input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.priority-high {
+    color: rgb(252, 0, 0);
+    font-weight: bold;
+}
+
+.priority-medium {
+    color: rgba(255, 121, 26, 0.808);
+}
+
+.priority-low {
+    color: rgb(12, 241, 12);
+}
+
+#add-task {
+    margin-top: 20px;
+    display: flex;
+}
+
+#task-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+#priority-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+#add-button {
+    background-color: #4caf50;
+    color: lightbisque;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
