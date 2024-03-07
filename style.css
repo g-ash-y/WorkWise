@@ -5,6 +5,45 @@ body {
 .container {
   text-align: center;
 }
+nav {
+  background-color: #333;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0%;
+  width: auto;
+  margin-left: 0%;
+  margin-right: 0%;
+
+
+}
+.logo img {
+  size: 100PX;
+  width:200px;
+  color: #ccc;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+li {
+  margin-right: 20px;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+a:hover {
+  background-color: #555;
+}
+a.active {
+  background-color: #555;
+}
 
 #timer {
   margin-top: 20px;
@@ -21,40 +60,19 @@ button {
   margin: 0 10px;
   cursor: pointer;
 }
-
-
-
-
+.image-container{
+  background-color: #afaeae;
+  text-align: center;
+  height:150px;
+}
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-nav
-{
-  flex: 1;
-  text-align: right;
+.oc{
+  width: 70%;
 }
-nav ul{
-  display: inline-block;
-  list-style-type: none;
-  
-}
-nav ul li{
-  display: inline-block;
-  margin-right: 20PX;  
-}
-a{
-  text-decoration: none;
-  color: #555;
-}
-p{
-   color: #555;
-}
-
-
-
 .gallery{
 width: 900px;
 display: flex;
@@ -82,14 +100,61 @@ align-items: center;
 justify-content: center;
 margin: 10% auto;
 }
-#backBtn,#nextBtn{
-width: 50px;
-cursor: pointer;
-margin: 40px;
-}
+
 .gallery div img:hover{
 filter:grayscale(0);
 cursor: pointer;
 transform: scale(1.1);
 
+}
+nav {
+  background-color: #333;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 100px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  margin-right: 20px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #555;
+}
+
+a.active {
+  background-color: #555;
+}
+.content {
+  /* Adjust the bottom padding to accommodate the fixed footer */
+  padding-bottom: 30px; /* Height of the fixed footer */
+}
+
+.footer {
+  position:relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
 }

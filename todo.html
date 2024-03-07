@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prioritized To-Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-image: url(grad.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+            /* align-items: center; */
             height: 100vh;
         }
         #todo-container {
@@ -22,6 +25,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            margin-top: 10%;
+            margin-left: 30%;
         }
         #todo-list {
             list-style: none;
@@ -79,12 +84,63 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0%;
+            width: auto;
+          
+       
+        }
+        .logo img {
+            width: 100px;color: #ccc;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        li {
+            margin-right: 20px;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #555;
+        }
+        a.active {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
+    <div> 
+    <nav>
+        <div class="logo">
+            <img src="white.png" atl="..." height="50%" width="50%">
+        </div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="pomo.html">POMODORO TIMER</a></li>
+            <li><a href="todo.html" class="active">TO-DO-LIST</a></li>
+            <li><a href="cal.html">CALENDAR SCHEDULING</a></li>
+        </ul>
+    </nav>
+</div>
+<div>
     <div id="todo-container">
         <h2>Prioritized To-Do List</h2>
+        
         <ul id="todo-list"></ul>
+        
         <div id="add-task">
             <input type="text" id="task-input" placeholder="Add a new task">
             <select id="priority-select">
@@ -94,6 +150,7 @@
             </select>
             <button id="add-button" onclick="addTask()">Add</button>
         </div>
+    </div>
     </div>
     <script>
         function addTask() {
