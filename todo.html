@@ -14,10 +14,53 @@
             background-image: url(grad.png);
             background-repeat: no-repeat;
             background-size: cover;
-            
-            /* align-items: center; */
             height: 100vh;
         }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo img {
+            width: 100px;
+            color: #ccc;
+        }
+
+        .nav-ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row; /* Display navbar items horizontally */
+        }
+
+        .nav-li {
+            margin-right: 20px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #555;
+        }
+
+        a.active {
+            background-color: #555;
+        }
+
         #todo-container {
             color:white;
             width: 600px;
@@ -26,19 +69,23 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-top: 10%;
-            margin-left: 30%;
+            margin-left: auto;
+            margin-right: auto;
         }
+
         #todo-list {
             list-style: none;
             padding: 0;
         }
+
         .task {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 10px 0;
         }
+
         .task input[type="checkbox"] {
             margin-right: 10px;
         }
@@ -58,11 +105,10 @@
 
         #add-task {
             margin-top: 20px;
-            display: flex;
         }
 
         #task-input {
-            flex: 1;
+            width: calc(100% - 112px);
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -70,6 +116,7 @@
         }
 
         #priority-select {
+            width: 100px;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -84,65 +131,39 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        nav {
-            background-color: #333;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 0%;
-            width: auto;
-          
-       
-        }
-        .logo img {
-            width: 100px;color: #ccc;
-        }
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        li {
-            margin-right: 20px;
-        }
-        a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px;
-            transition: background-color 0.3s ease;
-        }
-        a:hover {
-            background-color: #555;
-        }
-        a.active {
-            background-color: #555;
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div> 
     <nav>
         <div class="logo">
-            <img src="white.png" atl="..." height="50%" width="50%">
+            <img src="white.png" alt="..." height="50%" width="50%">
         </div>
-        <ul>
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="pomo.html">POMODORO TIMER</a></li>
-            <li><a href="todo.html" class="active">TO-DO-LIST</a></li>
-            <li><a href="cal.html">CALENDAR SCHEDULING</a></li>
+        <ul class="nav-ul">
+            <li class="nav-li"><a href="index.html">HOME</a></li>
+            <li class="nav-li"><a href="pomo.html">POMODORO TIMER</a></li>
+            <li class="nav-li"><a href="todo.html" class="active">TO-DO-LIST</a></li>
+            <li class="nav-li"><a href="cal.html">CALENDAR SCHEDULING</a></li>
         </ul>
     </nav>
-</div>
-<div>
+
     <div id="todo-container">
         <h2>Prioritized To-Do List</h2>
         
-        <ul id="todo-list"></ul>
+        <ol id="todo-list"></ol>
         
         <div id="add-task">
             <input type="text" id="task-input" placeholder="Add a new task">
+            <br>
+            <br>
             <select id="priority-select">
                 <option value="high">HIGH</option>
                 <option value="medium">MEDIUM</option>
@@ -151,7 +172,7 @@
             <button id="add-button" onclick="addTask()">Add</button>
         </div>
     </div>
-    </div>
+
     <script>
         function addTask() {
             var taskInput = document.getElementById("task-input");
@@ -174,6 +195,7 @@
 
                 var deleteButton = document.createElement("button");
                 deleteButton.innerText = "Delete";
+                deleteButton.className = "delete-button"; // Add class for styling
                 deleteButton.addEventListener("click", deleteTask);
 
                 taskItem.appendChild(checkbox);
