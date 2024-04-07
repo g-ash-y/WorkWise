@@ -1,26 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .container button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    .attendance-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .attendance-list {
+      margin-top: 20px;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .attendance-item {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div>
-        <nav>
-            <div class="logo">
-                <img src="workwise.png" atl="..." height="50%" width="50%">
-            </div>
-            <ul>
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="studt.html">STUDY LINK</a></li>
-                <li><a href="chat.html">CHAT</a></li>
-                <li><a href="attend.html" class="active">ATTENDANCE MARKER</a></li>
-                <li><a href="note.html" >NOTE SHARING</a></li>
-            </ul>
-        </nav>
-    </div>
+  <div>
+    <nav>
+        <div class="logo">
+            <img src="workwise.png" atl="..." height="50%" width="50%">
+        </div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="studt.html">STUDY LINK</a></li>
+            <li><a href="chat.html">CHAT</a></li>
+            <li><a href="attend.html" class="active">ATTENDANCE MARKER</a></li>
+            <li><a href="note.html" >NOTE SHARING</a></li>
+        </ul>
+    </nav>
+</div>
+  <div class="container">
+    <h2>Welcome to the Attendance System</h2>
+    <p>Please select your role:</p>
+    <button onclick="setRole('student')">I'm a Student</button>
+    <button onclick="setRole('teacher')">I'm a Teacher</button>
+  </div>
+
+  <div class="attendance-container" id="attendanceContainer" style="display: none;">
+    <h2>Attendance Record</h2>
+    <div id="attendanceList"></div>
+    <button onclick="showRandomEntry()">Show Random Entry</button>
+  </div>
+
+  <script>
+    let role = null;
+    let attendanceData = [];
+
+    function setRole(selectedRole) {
+      role = selectedRole;
+      const container = document.querySelector('.container');
+      const attendanceContainer = document.getElementById('attendanceContainer');
+
+      container.style.display = 'none';
+      attendanceContainer.style.display = 'block';
+
+      if (role === 'teacher') {
+        const dateInput = prompt('Enter date (YYYY-MM-DD):');
+        if (dateInput) {
+          markAttendance(dateInput);
+        } else {
+          alert('Invalid date!');
+          window.location.reload();
+        }
+      } else {
+        showAttendance();
+      }
+    }
+
+    function markAttendance(date) {
+      const studentList = [
+        'Karthika V A ',
+        'Gouri Ashok',
+        'Sneha Alias',
+        'Nanditha Sajeesh',
+        'Riya R'
+      ];
+
+      attendanceData = [];
+
+      for (let i = 0; i < studentList.length; i++) {
+        const present = confirm(`Is ${studentList[i]} present?`);
+        attendanceData.push({ student: studentList[i], date: date, present: present });
+      }
+
+      updateAttendanceList();
+    }
+
+    function showAttendance() {
+      const attendanceList = document.getElementById('attendanceList');
+      const dateInput = prompt('Enter date to view attendance (YYYY-MM-DD):');
+      if (dateInput) {
+        const filteredAttendance = attendanceData.filter(entry => entry.date === dateInput);
+        if (filteredAttendance.length > 0) {
+          attendanceList.innerHTML = '';
+          filteredAttendance.forEach(entry => {
+            const listItem = document.createElement('div');
+            listItem.textContent = `${entry.student}: ${entry.present ? 'Present' : 'Absent'}`;
+            listItem.classList.add('attendance-item');
+            attendanceList.appendChild(listItem);
+          });
+        } else {
+          alert('No attendance recorded for the entered date.');
+        }
+      } else {
+        alert('Invalid date!');
+      }
+    }
+
+    function showRandomEntry() {
+      const attendanceList = document.getElementById('attendanceList');
+      if (attendanceData.length > 0) {
+        const randomEntry = attendanceData[Math.floor(Math.random() * attendanceData.length)];
+        attendanceList.innerHTML = '';
+        const listItem = document.createElement('div');
+        listItem.textContent = `${randomEntry.student}: ${randomEntry.present ? 'Present' : 'Absent'}`;
+        listItem.classList.add('attendance-item');
+        attendanceList.appendChild(listItem);
+      } else {
+        alert('No attendance data available.');
+      }
+    }
+
+    function updateAttendanceList() {
+      const attendanceList = document.getElementById('attendanceList');
+      attendanceList.innerHTML = '';
+      attendanceData.forEach(entry => {
+        const listItem = document.createElement('div');
+        listItem.textContent = `${entry.student}: ${entry.present ? 'Present' : 'Absent'}`;
+        listItem.classList.add('attendance-item');
+        attendanceList.appendChild(listItem);
+      });
+    }
+  </script>
 </body>
 </html>
