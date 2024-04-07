@@ -6,6 +6,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+      .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+      input[type="file"] {
+          margin-bottom: 10px;
+      }
+      button {
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          cursor: pointer;
+      }
+      button:hover {
+          background-color: #45a049;
+      }
+      .file-link {
+          display: block;
+          margin-bottom: 10px;
+          color: #007bff;
+          text-decoration: none;
+      }
+  </style>
 </head>
 <body>
   <div>
@@ -22,6 +51,30 @@
         </ul>
     </nav>
 </div>
-   
+
+<div class="container">
+  <h2>File Sharing System</h2>
+  <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+  <button onclick="uploadFile()">Upload File</button>
+  <div id="fileLinkContainer"></div>
+</div>
+<script>
+  function uploadFile() {
+      var fileInput = document.getElementById("fileInput");
+      var file = fileInput.files[0];
+      if (!file) {
+          alert("Please select a file.");
+          return;
+      }
+      var fileLinkContainer = document.getElementById("fileLinkContainer");
+      var fileLink = document.createElement("a");
+      fileLink.classList.add("file-link");
+      fileLink.textContent = file.name;
+      fileLink.href = URL.createObjectURL(file);
+      fileLink.download = file.name;
+      fileLinkContainer.appendChild(fileLink);
+      fileInput.value = "";
+  }
+</script>   
 </body>
 </html>
