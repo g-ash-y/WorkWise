@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Chatroom</title>
+    <link rel="stylesheet" href="studsty.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messages">
+            <!-- Messages will be appended here -->
+        </div>
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <div class="attendance">
+        <h2>Attendance</h2>
+        <div id="attendanceList">
+            <!-- Attendance list will be populated here -->
+        </div>
+    </div>
+
+    <script src="studscr.js"></script>
+</body>
+</html>
