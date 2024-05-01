@@ -17,20 +17,39 @@
           max-width: 600px;
           margin: 0 auto;
           padding: 20px;
+          display: flex;
+          justify-content: space-around;
       }
       input[type="file"] {
           margin-bottom: 10px;
       }
       button {
           padding: 10px 20px;
-          background-color: #4CAF50;
-          color: white;
+          background-color: #8a3868;
+          color: lightpink;
           border: none;
           cursor: pointer;
       }
       button:hover {
-          background-color: #45a049;
+          background-color: #924b72;
       }
+      .upload-box {
+          border: 2px solid #3d2632;
+          margin-right: 20px;
+          padding: 20px;
+          width: 55%;
+     }
+      .file-list {
+         border: 2px solid #331c28;
+         padding: 20px;
+         width: 65%;
+    }
+      .file-link {
+        display: block;
+        margin-bottom: 10px;
+        margin-bottom: 15px;
+        padding: 15px 25px;
+  }
       .file-link {
           display: block;
           margin-bottom: 10px;
@@ -54,30 +73,37 @@
         </ul>
     </nav>
 </div>
-
+<br>
 <div class="container">
-  <h2>File Sharing System</h2>
-  <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
-  <button onclick="uploadFile()">Upload File</button>
-  <div id="fileLinkContainer"></div>
-</div>
-<script>
-  function uploadFile() {
+    <div class="upload-box">
+      <h2> notes & materials</h2>
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+      <button onclick="uploadFile()">Upload File</button>
+    </div>
+    <div class="file-list">
+      <h3>Uploaded Files:</h3>
+      <div id="fileLinkContainer"></div>
+    </div>
+  </div>
+  
+  <script>
+    function uploadFile() {
       var fileInput = document.getElementById("fileInput");
       var file = fileInput.files[0];
       if (!file) {
-          alert("Please select a file.");
-          return;
+        alert("Please select a file.");
+        return;
       }
       var fileLinkContainer = document.getElementById("fileLinkContainer");
-      var fileLink = document.createElement("a");
+      var fileLink = document.createElement("button");
       fileLink.classList.add("file-link");
       fileLink.textContent = file.name;
-      fileLink.href = URL.createObjectURL(file);
-      fileLink.download = file.name;
+      fileLink.onclick = function() {
+        window.open(URL.createObjectURL(file), '_blank');
+      };
       fileLinkContainer.appendChild(fileLink);
       fileInput.value = "";
-  }
-</script>   
+    }
+  </script>
 </body>
 </html>
