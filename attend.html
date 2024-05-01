@@ -320,126 +320,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Attendance Marking System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 60%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-section {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .input-section input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .input-section button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #28a745;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .input-section button:hover {
-            background-color: #218838;
-        }
-
-        .attendance-summary {
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-        }
-
-        .attendance-summary div {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .present {
-            background-color: #c3e6cb; /* Light green for present students */
-        }
-
-        .absent {
-            background-color: #f5c6cb; /* Light red for absent students */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="attend.css">
 </head>
 <body>
     <div class="container">
         <h1>Attendance Marking System</h1>
-        
-        <div class="input-section">
-            <input type="text" id="rollNumber" placeholder="Enter roll number to mark absent" />
-            <button onclick="markAbsent()">Mark Absent</button> <!-- Button to mark absent -->
-        </div>
-        
-        <div class="attendance-summary">
-            <div id="absentList">
-                <strong>Absent:</strong>
-            </div>
-            <div id="presentList">
-                <strong>Present:</strong>
-            </div>
-        </div>
+        <p>Enter roll numbers of absent students, separated by commas:</p>
+        <input type="text" id="absentInput" placeholder="E.g., 2, 5, 8">
+        <button onclick="markAttendance()">Mark Attendance</button>
+
+        <h2>Present Students</h2>
+        <ul id="presentStudents"></ul>
+
+        <h2>Absent Students</h2>
+        <ul id="absentStudents"></ul>
     </div>
-    
-    <script>
-        const allStudents = Array.from({ length: 54 }, (_, i) => `Student ${i + 1}`); // List of 54 students by roll number
-        const absentStudents = []; // Empty list for absent students
 
-        // Function to mark a student as absent based on roll number
-        function markAbsent() {
-            const rollNumber = parseInt(document.getElementById("rollNumber").value.trim(), 10); // Parse roll number
-            
-            if (!isNaN(rollNumber) && rollNumber >= 1 && rollNumber <= 54) {
-                const studentName = `Student ${rollNumber}`;
-                if (!absentStudents.includes(studentName)) {
-                    absentStudents.push(studentName); // Add to absent list if not already there
-                }
-                
-                document.getElementById("rollNumber").value = ""; // Clear the input field
-                
-                updateAttendanceSummary(); // Update the summary
-            }
-        }
-
-        // Function to update the attendance summary showing both absent and present students
-        function updateAttendanceSummary() {
-            const absentList = document.getElementById("absentList");
-            const presentList = document.getElementById("presentList");
-            
-            // Get list of present students
-            const presentStudents = allStudents.filter(name => !absentStudents.includes(name));
-            
-            // Update the absent list
-            absentList.innerHTML = `<strong>Absent:</strong> ${absentStudents.join(", ") || "None"}`;
-            
-            // Update the present list
-            presentList.innerHTML = `<strong>Present:</strong> ${presentStudents.join(", ")}`;
-        }
-
-        // Initialize with the default attendance summary
-        updateAttendanceSummary();
-    </script>
+    <script src="attend.js"></script>
 </body>
 </html>
