@@ -2,7 +2,7 @@
 $HOSTNAME='localhost';
 $USERNAME='root';
 $PASSWORD='';
-$DATABASE='learning management system';
+$DATABASE='learning management sys';
 
 
 $con=mysqli_connect($HOSTNAME,$USERNAME,$PASSWORD,$DATABASE);
@@ -453,7 +453,7 @@ a.active {
     </div>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form action="signup.php" method="post" class="contact-input mt-5 position-relative" >
                 <h1>Create Account</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -462,14 +462,21 @@ a.active {
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registeration</span>
-                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Name"  name="username">
                 <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Password" name="password">
+                <div class="radio">
+                <input type="radio" name="user-type" value="teacher">Teacher</input>&nbsp;&nbsp;&nbsp;
+ 
+                 <input type="radio" name="user_type" value="student">Student</input>&nbsp;&nbsp;
+               
+                 <input type="radio" name="user_type" value="personal">Personal</input>&nbsp;&nbsp;&nbsp;
+            </div>
                 <button>Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
+            <form action="signup.php" method="post" class="contact-input mt-5 position-relative">
                 <h1>Sign In</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -478,17 +485,9 @@ a.active {
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email password</span>
-                <input type="email" placeholder="Email" name="username">
-                <input type="password" placeholder="Password" name="password">
-                <br>
-                <div class="radio">
-                <input type="radio" name="user-type" value="teacher">Teacher</input>&nbsp;&nbsp;&nbsp;
- 
-                 <input type="radio" name="user_type" value="student">Student</input>&nbsp;&nbsp;
-               
-                 <input type="radio" name="user_type" value="personal">Personal</input>&nbsp;&nbsp;&nbsp;
-            </div>
-            <a href="#">Forget Your Password?</a>
+                <input type="email" placeholder="Email" name="usernamein">
+                <input type="password" placeholder="Password" name="passwordin">
+                <br>              <a href="#">Forget Your Password?</a>
                 <button><a href='index.html'>Sign In</a></button>
             </form>
         </div>
@@ -507,7 +506,20 @@ a.active {
             </div>
         </div>
     </div>
-    <
+    <script>
+        const container = document.getElementById('container');
+const registerBtn = document.getElementById('register');
+const loginBtn = document.getElementById('login');
+
+registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
+});
+
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active");
+});
+    </script>
+
     <script src="scriptsign.js"></script>
 </body>
 
