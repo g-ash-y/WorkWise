@@ -466,7 +466,7 @@ a.active {
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password" name="password">
                 <div class="radio">
-                <input type="radio" name="user-type" value="teacher">Teacher</input>&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="user_type" value="teacher">Teacher</input>&nbsp;&nbsp;&nbsp;
  
                  <input type="radio" name="user_type" value="student">Student</input>&nbsp;&nbsp;
                
@@ -487,7 +487,9 @@ a.active {
                 <span>or use your email password</span>
                 <input type="email" placeholder="Email" name="usernamein">
                 <input type="password" placeholder="Password" name="passwordin">
-                <br>              <a href="#">Forget Your Password?</a>
+                <br>
+               
+            <a href="#">Forget Your Password?</a>
                 <button><a href='index.html'>Sign In</a></button>
             </form>
         </div>
