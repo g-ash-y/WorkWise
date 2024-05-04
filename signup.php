@@ -1,4 +1,5 @@
 <?php
+session_start();
 $HOSTNAME='localhost';
 $USERNAME='root';
 $PASSWORD='';
@@ -31,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close connection
 $con->close();
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -462,8 +465,8 @@ a.active {
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registeration</span>
-                <input type="text" placeholder="Name"  name="username">
-                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Name"  >
+                <input type="email" placeholder="Email" name="username">
                 <input type="password" placeholder="Password" name="password">
                 <div class="radio">
                 <input type="radio" name="user_type" value="teacher">Teacher</input>&nbsp;&nbsp;&nbsp;
@@ -476,7 +479,7 @@ a.active {
             </form>
         </div>
         <div class="form-container sign-in">
-            <form action="signup.php" method="post" class="contact-input mt-5 position-relative">
+            <form action="signin.php" method="post" class="contact-input mt-5 position-relative">
                 <h1>Sign In</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -490,7 +493,7 @@ a.active {
                 <br>
                
             <a href="#">Forget Your Password?</a>
-                <button><a href='index.html'>Sign In</a></button>
+                <button>Sign In</button>
             </form>
         </div>
         <div class="toggle-container">
@@ -498,7 +501,7 @@ a.active {
                 <div class="toggle-panel toggle-left">
                     <h1>Welcome Back!</h1>
                     <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Sign In<a href='index.html'></a></button>
+                    <button class="hidden" id="login">Sign In</button>
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Hello, Friend!</h1>
@@ -520,6 +523,21 @@ registerBtn.addEventListener('click', () => {
 loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
+    </script>
+    <?php if(isset($_SESSION['login_error']) && $_SESSION['login_error']): ?>
+    <div id="popup-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+    <div id="popup" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); z-index: 1000;">
+        <p style="margin: 0; text-align: center; color: darkblue;"><b>Invalid credentials or user not approved by admin</b></p>
+        <button onclick="dismissPopup()" style="margin-top: 10px; padding: 5px 10px; background-color: blue; color: white; border-radius: 50px; cursor: pointer;">Dismiss</button>
+    </div>
+    <?php endif; ?>
+
+    <!-- Your HTML script content goes here -->
+    <script>
+        function dismissPopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
     </script>
 
     <script src="scriptsign.js"></script>
