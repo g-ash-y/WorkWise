@@ -18,9 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $user_type = $_POST['user_type'];
+    $name = $_POST['name'];
 
     // SQL to insert data into signup table
-    $sql = "INSERT INTO signup (username, password, user_type) VALUES ('$username', '$password', '$user_type')";
+    $sql = "INSERT INTO signup (username, password, user_type,name) VALUES ('$username', '$password', '$user_type','$name')";
 
     if ($con->query($sql) === TRUE) {
         echo "New record created successfully";
@@ -465,7 +466,7 @@ a.active {
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registeration</span>
-                <input type="text" placeholder="Name"  >
+                <input type="text" placeholder="Name" name="name" >
                 <input type="email" placeholder="Email" name="username">
                 <input type="password" placeholder="Password" name="password">
                 <div class="radio">

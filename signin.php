@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usernamein = $_POST['usernamein'];
     $passwordin = $_POST['passwordin'];
     $user_typein = $_POST['user_typein'];
+    $name=$_POST['name'];
 
     // Verify user credentials
     $sql="SELECT * FROM `signup` WHERE username='$usernamein' AND password='$passwordin'";
@@ -26,8 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if(mysqli_num_rows($result) == 1){
         $_SESSION['user_logged_in'] = true;
-        $_SESSION['usernamein'] = $usernamein; // Store reg_no in session for later use
-        header('location:index.html');
+        $_SESSION['usernamein'] = $usernamein;
+
+        $row = mysqli_fetch_assoc($result);
+
+        // Store the 'name' value from the fetched row into session
+        $_SESSION['name'] = $row['name'];
+       // Store reg_no in session for later use
+        header('location:index.php');
     } else{
         
     echo '<div id="popup-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
