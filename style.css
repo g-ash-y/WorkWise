@@ -37,14 +37,14 @@ a .button :hover{
   background: gray;
   
 }
-  img {
-   border-color: #333;
+#button {
+   border-color: wheat;
    margin-top: 50px; 
    align-items: center;
    align-self: center;
 
 }
- img :hover{
+#button :hover{
   background: gray;
 }
 .button{
