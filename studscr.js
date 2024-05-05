@@ -19,15 +19,15 @@ function displayMessages() {
 }
 
 // Function to display attendance list
-function displayAttendance() {
-    const attendanceList = document.getElementById('attendanceList');
-    attendanceList.innerHTML = '';
-    students.forEach(student => {
-        const listItem = document.createElement('li');
-        listItem.textContent = student;
-        attendanceList.appendChild(listItem);
-    });
-}
+//function displayAttendance() {
+ //   const attendanceList = document.getElementById('attendanceList');
+   // attendanceList.innerHTML = '';
+    //students.forEach(student => {
+      //  const listItem = document.createElement('li');
+        //listItem.textContent = student;
+        //attendanceList.appendChild(listItem);
+    //});
+//}
 
 // Function to send a message
 function sendMessage() {
