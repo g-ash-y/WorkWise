@@ -155,10 +155,6 @@ a {
   transition: background-color 0.3s ease;
 }
 
-a:hover {
-  background-color: #555;
-}
-
 a.active {
   background-color: #555;
 }
