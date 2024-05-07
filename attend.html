@@ -21,19 +21,16 @@
     </style>
 </head>
 <body>
-
     <div class="navbar">
-        <div class="navbar-brand">
-            <h1> 
-                Student Attendance Portal
-            </h1>
-        </div>
+        <img src="workwise.png" atl="..." height="10%" width="6%">
+        
         <div class="navbar-links">
-            <p>
-                Academic Year: 
-                <span id="academicYear">2024</span>
-            </p>
-            <!-- Add other relevant information -->
+                <a href="index.html">HOME</a>
+                <a href="studt.html">STUDY LINK</a>
+                <a href="chat.html">CHAT</a>
+                <a href="attend.html">ATTENDANCE MARKER</a>
+                <a href="note.html" class="active">NOTE SHARING</a>
+            </ul>
         </div>
     </div>
 
@@ -52,12 +49,9 @@
             <label for="classSelector">Class:</label>
             <select id="classSelector" required 
                 onchange="showStudentsList()">
-                <!-- Populate classes dynamically -->
             </select>
 
             <ul id="studentsList">
-                <!-- Populate students dynamically 
-                    based on the selected class -->
             </ul>
 
             <div id="summarySection">
@@ -84,7 +78,6 @@
                 Submit Attendance
             </button>
 
-            <!-- Result Section -->
             <div id="resultSection" style="display: none;">
                 <h3>Attendance Result</h3>
                 <p>
@@ -121,7 +114,6 @@
 
     <div id="addStudentPopup" class="popup">
         <h2>Add Student</h2>
-        <!-- Add Student Form Content -->
         <label for="newStudentName">
             Student Name:
         </label>
@@ -130,7 +122,6 @@
             Roll Number:
         </label>
         <input type="text" id="newStudentRoll" required>
-        <!-- Add more fields as needed -->
 
         <button onclick="addStudent()">
             submit
@@ -142,12 +133,10 @@
 
     <div id="addClassPopup" class="popup">
         <h2>Add Class</h2>
-        <!-- Add Class Form Content -->
         <label for="newClassName">
             Class Name:
         </label>
         <input type="text" id="newClassName" required>
-        <!-- Add more fields as needed -->
 
         <button onclick="addClass()">
             Submit

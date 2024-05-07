@@ -159,8 +159,7 @@ a.active {
   background-color: #555;
 }
 .content {
-  /* Adjust the bottom padding to accommodate the fixed footer */
-  padding-bottom: 30px; /* Height of the fixed footer */
+  padding-bottom: 30px;
 }
 
 .footer {
