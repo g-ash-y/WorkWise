@@ -25,9 +25,18 @@ body {
 .navbar-links a {
     color: white;
     text-decoration: none;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
-
+a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+a.active {
+    background-color: #555;
+}
 .container {
     max-width: 800px;
     margin: 20px auto;
