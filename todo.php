@@ -152,17 +152,23 @@ $result = $stmt->get_result();
         }
 
         .priority-high {
-            color: rgb(255, 0, 0);
-            font-weight: bold;
-        }
+    color: black;
+   
+    text-decoration-color: red;
+    text-decoration-line: underline;
+}
 
-        .priority-medium {
-            color: rgba(251, 152, 24, 0.808);
-        }
+.priority-medium {
+    color: black;
+    text-decoration-color: rgba(251, 152, 24, 0.808);
+    text-decoration-line: underline;
+}
 
-        .priority-low {
-            color: rgb(12, 241, 12);
-        }
+.priority-low {
+    color: black;
+    text-decoration-color: rgb(12, 241, 12);
+    text-decoration-line: underline;
+}
 
         #add-task {
             margin-top: 20px;
@@ -255,68 +261,68 @@ $result = $stmt->get_result();
     </ol>
 
     <script>
-        function addTask() {
-            var taskInput = document.getElementById("task-input");
-            var prioritySelect = document.getElementById("priority-select");
-            var taskText = taskInput.value.trim();
-            var priority = prioritySelect.value;
+       function addTask() {
+    var taskInput = document.getElementById("task-input");
+    var prioritySelect = document.getElementById("priority-select");
+    var taskText = taskInput.value.trim();
+    var priority = prioritySelect.value;
 
-            if (taskText !== "") {
-                // AJAX request
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        // On success, add task to the list
-                        var todoList = document.getElementById("todo-list");
+    if (taskText !== "") {
+        // AJAX request
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // On success, add task to the list
+                var todoList = document.getElementById("todo-list");
 
-                        var taskItem = document.createElement("li");
-                        taskItem.className = "task";
+                var taskItem = document.createElement("li");
+                taskItem.className = "task";
 
-                        var checkbox = document.createElement("input");
-                        checkbox.type = "checkbox";
-                        checkbox.addEventListener("change", toggleTask);
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.addEventListener("change", toggleTask);
 
-                        var taskTextElement = document.createElement("span");
-                        taskTextElement.innerText = taskText;
+                var taskTextElement = document.createElement("span");
+                taskTextElement.innerText = taskText;
 
-                        var deleteButton = document.createElement("button");
-                        deleteButton.innerText = "Delete";
-                        deleteButton.className = "delete-button"; // Add class for styling
-                        deleteButton.addEventListener("click", deleteTask);
+                var deleteButton = document.createElement("button");
+                deleteButton.innerText = "Delete";
+                deleteButton.className = "delete-button"; // Add class for styling
+                deleteButton.addEventListener("click", deleteTask1);
 
-                        taskItem.appendChild(checkbox);
-                        taskItem.appendChild(taskTextElement);
-                        taskItem.appendChild(deleteButton);
+                taskItem.appendChild(checkbox);
+                taskItem.appendChild(taskTextElement);
+                taskItem.appendChild(deleteButton);
 
-                        if (priority === "high") {
-                            taskItem.classList.add("priority-high");
-                        } else if (priority === "medium") {
-                            taskItem.classList.add("priority-medium");
-                        } else if (priority === "low") {
-                            taskItem.classList.add("priority-low");
-                        }
+                if (priority === "high") {
+                    taskItem.classList.add("priority-high");
+                } else if (priority === "medium") {
+                    taskItem.classList.add("priority-medium");
+                } else if (priority === "low") {
+                    taskItem.classList.add("priority-low");
+                }
 
-                        todoList.appendChild(taskItem);
+                todoList.appendChild(taskItem);
 
-                        taskInput.value = "";
-                    }
-                };
-                xhttp.open("POST", "todo.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("task=" + taskText + "&priority=" + priority);
+                taskInput.value = "";
             }
-        }
+        };
+        xhttp.open("POST", "todo.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("task=" + taskText + "&priority=" + priority);
+    }
+}
 
-        function toggleTask(event) {
-            var taskTextElement = event.target.nextElementSibling;
-            if (event.target.checked) {
-                taskTextElement.style.textDecoration = "line-through";
-            } else {
-                taskTextElement.style.textDecoration = "none";
-            }
-        }
+function toggleTask(event) {
+    var taskTextElement = event.target.nextElementSibling;
+    if (event.target.checked) {
+        taskTextElement.style.textDecoration = "line-through";
+    } else {
+        taskTextElement.style.textDecoration = "none";
+    }
+}
 
-        function deleteTask(event) {
+function deleteTask(event) {
     var taskItem = event.target.parentElement;
     var pendingList = document.getElementById("pending-list");
 
@@ -332,8 +338,26 @@ $result = $stmt->get_result();
     xhttp.open("POST", "delete_task.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("task=" + encodeURIComponent(taskText));
+}
+function deleteTask1(event) {
+    var taskItem = event.target.parentElement;
+    var todoList = document.getElementById("todo-list");
 
+    // Remove the task from the database via AJAX
+    var taskText = taskItem.querySelector("span").innerText;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // On successful deletion from the database, remove the task from the UI
+            todoList.removeChild(taskItem);
         }
+    };
+    xhttp.open("POST", "delete_task.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("task=" + encodeURIComponent(taskText));
+}
+
+       
     </script>
 </body>
 </html>
