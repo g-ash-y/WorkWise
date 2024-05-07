@@ -27,15 +27,12 @@
             </ul>
         </nav>
     </div>
-    <div style="text-align: center; padding-top: 5%;" class="selfnstud disabled">
-    <a href='self.html'>
-        <!-- Image acting as button for 'self.html' -->
-        <img src="self.png" alt="Self" onclick="window.location.href='self.html';">
-    </a>
-    <a href='studt.html'> 
-        <!-- Image acting as button for 'studt.html' -->
-        <img src="sl.png" alt="Study Link"  onclick="window.location.href='studt.html';">
-    </a>
-</div>
+    <div>
+
+      <a href="self.html" class="button"><img id="button" src="self.png" style="padding:  30px; margin-left: 50px; margin-right: 50px;" ></a>
+
+      <a href="studt.html"  class="button"><img id="button" src="sl.png" style="padding:  30px; margin-left:50px ; margin-right: 50px;" ></a></div>
+    
+
 </body>
 </html>
