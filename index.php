@@ -14,7 +14,7 @@
             <div class="logo">
                 <img src="workwise.png" atl="..." height="50%" width="50%">
                 <?php if (isset($_SESSION['name'])) {
-            echo '<span class="welcome" style="color: white; font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WELCOME   </span><span style="color: white; font-size: 20px;">' . $_SESSION['name'] . '</span>';
+            echo '<span class="welcome" style="color: white; font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>WELCOME  </b> </span><span style="color: white; font-size: 20px; ">'. $_SESSION['name'] . '</span>';
         } ?>
             </div>
             <ul>

@@ -1,7 +1,6 @@
-<?php
-session_start(); // Start the session to access session variables
 
-// Check if the user is logged in, redirect to login page if not
+<?php
+session_start();
 if (!isset($_SESSION['usernamein'])) {
     header("Location: signin.php");
     exit;
@@ -34,9 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usernamein = $_SESSION['usernamein'];
 
     // Prepare SQL statement to insert data into task_schedule table
-    $stmt = $conn->prepare("INSERT INTO task_schedule (username, task, priority) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $task, $priority);
-
+    $stmt = $con->prepare("INSERT INTO task_schedule (username, task, priority) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $usernamein, $task, $priority);
+    
     // Execute the prepared statement
     if ($stmt->execute() === TRUE) {
         echo "New record created successfully";
@@ -46,12 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close statement
     $stmt->close();
+
+
 }
 
-// Close connection
-$conn->close();
+$sql = "SELECT task, priority FROM task_schedule WHERE username = ?";
+$stmt = $con->prepare($sql);
+$stmt->bind_param("s", $_SESSION['usernamein']);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,11 +64,9 @@ $conn->close();
     <title>Prioritized To-Do List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   
-
-
-
     <style>
+
+<style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -151,17 +152,23 @@ $conn->close();
         }
 
         .priority-high {
-            color: rgb(255, 0, 0);
-            font-weight: bold;
-        }
+    color: black;
+   
+    text-decoration-color: red;
+    text-decoration-line: underline;
+}
 
-        .priority-medium {
-            color: rgba(251, 152, 24, 0.808);
-        }
+.priority-medium {
+    color: black;
+    text-decoration-color: rgba(251, 152, 24, 0.808);
+    text-decoration-line: underline;
+}
 
-        .priority-low {
-            color: rgb(12, 241, 12);
-        }
+.priority-low {
+    color: black;
+    text-decoration-color: rgb(12, 241, 12);
+    text-decoration-line: underline;
+}
 
         #add-task {
             margin-top: 20px;
@@ -234,74 +241,123 @@ $conn->close();
         </div>
     </div>
 
-    <script>
-    function addTask() {
-        var taskInput = document.getElementById("task-input");
-        var prioritySelect = document.getElementById("priority-select");
-        var taskText = taskInput.value.trim();
-        var priority = prioritySelect.value;
+    <center><br><br><h1>PENDING LIST</h1></center>
 
-        if (taskText !== "") {
-            // AJAX request
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // On success, add task to the list
-                    var todoList = document.getElementById("todo-list");
-
-                    var taskItem = document.createElement("li");
-                    taskItem.className = "task";
-
-                    var checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.addEventListener("change", toggleTask);
-
-                    var taskTextElement = document.createElement("span");
-                    taskTextElement.innerText = taskText;
-
-                    var deleteButton = document.createElement("button");
-                    deleteButton.innerText = "Delete";
-                    deleteButton.className = "delete-button"; // Add class for styling
-                    deleteButton.addEventListener("click", deleteTask);
-
-                    taskItem.appendChild(checkbox);
-                    taskItem.appendChild(taskTextElement);
-                    taskItem.appendChild(deleteButton);
-
-                    if (priority === "high") {
-                        taskItem.classList.add("priority-high");
-                    } else if (priority === "medium") {
-                        taskItem.classList.add("priority-medium");
-                    } else if (priority === "low") {
-                        taskItem.classList.add("priority-low");
-                    }
-
-                    todoList.appendChild(taskItem);
-
-                    taskInput.value = "";
-                }
-            };
-            xhttp.open("POST", "todo.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("task=" + taskText + "&priority=" + priority);
-        }
-    }
-
-    function toggleTask(event) {
-        var taskTextElement = event.target.nextElementSibling;
-        if (event.target.checked) {
-            taskTextElement.style.textDecoration = "line-through";
+    <ol id="pending-list">
+        <?php
+        // Check if there are any tasks
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            while ($row = $result->fetch_assoc()) {
+                // Output each task as an HTML element
+                $taskText = htmlspecialchars($row["task"]);
+                $priority = htmlspecialchars($row["priority"]);
+                echo "<li class='task priority-$priority'><input type='checkbox' onchange='toggleTask(event)'><span>$taskText</span><button class='delete-button' onclick='deleteTask(event)'>Delete</button></li>";
+            }
         } else {
-            taskTextElement.style.textDecoration = "none";
+            echo "<p style='text-align: center;'>YOU ARE UPTO DATE <br> YOUR TASKS ARE ALL COMPLETED</p>";
         }
-    }
+        ?>
+    </ol>
 
-    function deleteTask(event) {
-        var taskItem = event.target.parentElement;
-        var todoList = document.getElementById("todo-list");
-        todoList.removeChild(taskItem);
-    }
-</script>
+    <script>
+       function addTask() {
+    var taskInput = document.getElementById("task-input");
+    var prioritySelect = document.getElementById("priority-select");
+    var taskText = taskInput.value.trim();
+    var priority = prioritySelect.value;
 
+    if (taskText !== "") {
+        // AJAX request
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // On success, add task to the list
+                var todoList = document.getElementById("todo-list");
+
+                var taskItem = document.createElement("li");
+                taskItem.className = "task";
+
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.addEventListener("change", toggleTask);
+
+                var taskTextElement = document.createElement("span");
+                taskTextElement.innerText = taskText;
+
+                var deleteButton = document.createElement("button");
+                deleteButton.innerText = "Delete";
+                deleteButton.className = "delete-button"; // Add class for styling
+                deleteButton.addEventListener("click", deleteTask1);
+
+                taskItem.appendChild(checkbox);
+                taskItem.appendChild(taskTextElement);
+                taskItem.appendChild(deleteButton);
+
+                if (priority === "high") {
+                    taskItem.classList.add("priority-high");
+                } else if (priority === "medium") {
+                    taskItem.classList.add("priority-medium");
+                } else if (priority === "low") {
+                    taskItem.classList.add("priority-low");
+                }
+
+                todoList.appendChild(taskItem);
+
+                taskInput.value = "";
+            }
+        };
+        xhttp.open("POST", "todo.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("task=" + taskText + "&priority=" + priority);
+    }
+}
+
+function toggleTask(event) {
+    var taskTextElement = event.target.nextElementSibling;
+    if (event.target.checked) {
+        taskTextElement.style.textDecoration = "line-through";
+    } else {
+        taskTextElement.style.textDecoration = "none";
+    }
+}
+
+function deleteTask(event) {
+    var taskItem = event.target.parentElement;
+    var pendingList = document.getElementById("pending-list");
+
+    // Remove the task from the database via AJAX
+    var taskText = taskItem.querySelector("span").innerText;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // On successful deletion from the database, remove the task from the UI
+            pendingList.removeChild(taskItem);
+        }
+    };
+    xhttp.open("POST", "delete_task.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("task=" + encodeURIComponent(taskText));
+}
+function deleteTask1(event) {
+    var taskItem = event.target.parentElement;
+    var todoList = document.getElementById("todo-list");
+
+    // Remove the task from the database via AJAX
+    var taskText = taskItem.querySelector("span").innerText;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // On successful deletion from the database, remove the task from the UI
+            todoList.removeChild(taskItem);
+        }
+    };
+    xhttp.open("POST", "delete_task.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("task=" + encodeURIComponent(taskText));
+}
+
+       
+    </script>
 </body>
 </html>
