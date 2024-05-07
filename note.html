@@ -14,10 +14,12 @@
       background-size: 100%;
       }
       .container {
-          max-width: 600px;
+          max-width: 100%;
           margin: 0 auto;
           padding: 20px;
-          display: flex;
+          display: flex; /* Use flexbox to stack items */
+          flex-direction: column; /* Stack items vertically */
+          align-items: center;
           justify-content: space-around;
       }
       input[type="file"] {
@@ -25,8 +27,8 @@
       }
       button {
           padding: 10px 20px;
-          background-color: #8a3868;
-          color: lightpink;
+          background-color: #87697f;
+          color: rgb(28, 7, 19);
           border: none;
           cursor: pointer;
       }
@@ -34,15 +36,19 @@
           background-color: #924b72;
       }
       .upload-box {
-          border: 2px solid #3d2632;
-          margin-right: 20px;
-          padding: 20px;
-          width: 55%;
-     }
-      .file-list {
-         border: 2px solid #331c28;
-         padding: 20px;
-         width: 65%;
+    border: 0.5px solid #f9f7f8;
+    margin: 0 auto;
+    display: block; /* Change from inline-block to block */
+    padding: 20px;
+    width: 50%;
+}
+
+.file-list {
+    border: 1px solid #faf6f8;
+    display: block; /* Change from inline-block to block */
+    margin-top: 50px;
+    padding: 100px;
+    width: 100%;
     }
       .file-link {
         display: block;
@@ -53,7 +59,7 @@
       .file-link {
           display: block;
           margin-bottom: 10px;
-          color: #007bff;
+          color: #0d0309;
           text-decoration: none;
       }
   </style>
@@ -74,9 +80,10 @@
     </nav>
 </div>
 <br>
+<h1 style="text-align: center;"><b>NOTE-SHARING</b></h1>
 <div class="container">
     <div class="upload-box">
-      <h2> notes & materials</h2>
+      <h2> DROP FILES HERE</h2>
       <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
       <button onclick="uploadFile()">Upload File</button>
     </div>
