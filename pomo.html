@@ -1,56 +1,82 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <style>
-      body{
-        
-        background-size: cover;
-        background-position: center;
-        
-      }
-      .container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh; 
-        flex-direction: column; /* Stack items vertically */
-        background-size: cover;
-      }
+        body {
+            margin: 0; /* Reset default margin */
+            font-family: Arial, sans-serif;
+            background-image: url('pomopic.jpg');
+            background-size: cover;
+        }
+        .circular-container {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(21, 89, 177, 0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px; /* Add margin-top to prevent overlap with h1 */
+        }
+        .button-wrapper {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3b5998; /* Shade of blue */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100px; /* Same width for all buttons */
+        }
     </style>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Pomodoro Timer</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-      <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+</head>
+<body>
     <nav>
-      <div class="logo">
-          <img src="workwise.png" atl="..." height="50%" width="50%">
-      </div>
-      <ul>
-        <li><a href="index.html">HOME</a></li>
-        <li><a href="self.html">SELF</a></li>
-        <li><a href="pomo.html" class="active">POMODORO TIMER</a></li>
-        <li><a href="todo.html">TO-DO-LIST</a></li>
-        <li><a href="cal.html">CALENDAR SCHEDULING</a></li>
-      </ul>
-  </nav>
-  <div style="background-image: url('dotbg.png'); background-size: cover;">
-    <br>
-    <br>
-    <h1 style="text-align: center;">POMODORO TIMER</h1>
-      <div class="container">
-          <h1 class="timer" id="timer">25:00</h1><br>
-          <div class="button-wrapper">
-              <button id="start">Start</button>
-              <button id="stop">Stop</button>
-              <button id="reset">Reset</button><br><br>
-             <center><button id="Break">Break Time</button></center> 
-          </div>
-      </div>
+        <div class="logo">
+            <img src="workwise.png" atl="..." height="50%" width="50%">
+        </div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="self.html">SELF</a></li>
+            <li><a href="pomo.html" class="active">POMODORO TIMER</a></li>
+            <li><a href="todo.html">TO-DO-LIST</a></li>
+            <li><a href="cal.html">CALENDAR SCHEDULING</a></li>
+        </ul>
+    </nav>
+    <BR>
+    <h1 style="text-align: center;"><b>POMODORO TIMER</b></h1>
+    <BR>
+      <BR>
+    <div class="circular-container">
+        <h1 class="timer" id="timer"><b>25:00</b></h1><br>
+        <div class="button-wrapper">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+        </div>
+        <div class="button-wrapper">
+            <button id="reset">Reset</button>
+        </div>
+        <div class="button-wrapper">
+            <button id="break" style="width: 150px;">Break Time</button>
+        </div>
     </div>
-      <script src="script.js"></script>
-  </body>
-  </html>
+    <script src="script.js"></script>
+</body>
+</html>
+

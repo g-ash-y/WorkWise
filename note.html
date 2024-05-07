@@ -9,9 +9,10 @@
     <style>
       body {
           font-family: Arial, sans-serif;
-          background-image: url(grad.png);
-      background-repeat: no-repeat;
-      background-size: 100%;
+          background-image: url(notesharing3.jpg);
+          background-repeat: no-repeat;
+        background-size: cover; /* Cover the entire viewport */
+        background-position: center;
       }
       .container {
           max-width: 100%;
@@ -27,28 +28,35 @@
       }
       button {
           padding: 10px 20px;
-          background-color: #87697f;
-          color: rgb(28, 7, 19);
+          background-color: rgb(5, 15, 73);
+          color: rgb(241, 243, 247);
           border: none;
           cursor: pointer;
+          width: 100%; /* Uniform width for buttons */
+          height: 100%; /* Uniform height for buttons */
+          margin: 5px; /* Adjust margin */
       }
       button:hover {
-          background-color: #924b72;
+          background-color: #1d509c;
       }
       .upload-box {
-    border: 0.5px solid #f9f7f8;
+    border: 2px solid #282e5c;
+    background-color: #eaebfe;
     margin: 0 auto;
     display: block; /* Change from inline-block to block */
     padding: 20px;
     width: 50%;
+    overflow: hidden;
 }
 
 .file-list {
-    border: 1px solid #faf6f8;
+    border: 2px solid #424078;
+    background-color: #eaebfe;
     display: block; /* Change from inline-block to block */
     margin-top: 50px;
     padding: 100px;
     width: 100%;
+    overflow: hidden;
     }
       .file-link {
         display: block;
@@ -59,7 +67,7 @@
       .file-link {
           display: block;
           margin-bottom: 10px;
-          color: #0d0309;
+          color: #eff2f4;
           text-decoration: none;
       }
   </style>
