@@ -5,35 +5,16 @@
     <title>Attendance Marker</title>
     <link rel="stylesheet" href="attend.css">
     <style>
-
-.logo img {
-  size: 100px;
-  width:100px;
-  color: #ccc;
-}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
+    body {
+  font-family: Arial, sans-serif;
 }
 
-li {
-  margin-right: 20px;
+.container {
+  text-align: center;
 }
-    a{
-        color: #fff;
-        text-decoration: none;
-        padding: 10px;
-        transition: background-color 0.3s ease;
-    }
-    a.active {
-        background-color: #555;
-    }
-    
-    nav {
-  background-color: #333;
-  padding: 10px;
+nav {
+  background-color: #022954;
+  padding: 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,11 +23,54 @@ li {
   margin-left: 0%;
   margin-right: 0%;
 }
+.logo img {
+  size: 100PX;
+  width:200px;
+  color: #5e6aa4;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+li {
+  margin-right: 20px;
+}
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+.logo img {
+  width: 100px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+    margin-right: 10px;
+    background-color:#022954;
+}
+a {
+  text-decoration: none;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+a.active {
+  background-color: #5e6aa4;
+}
+
+a:hover {
+  background: #555;
+}
+
     </style>
 </head>
 <body>
@@ -55,6 +79,7 @@ li {
             <div class="logo">
                 <img src="workwise.png" atl="..." height="50%" width="50%">
             </div>
+            <div>
             <ul>
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="studt.html">STUDY LINK</a></li>
@@ -62,6 +87,7 @@ li {
                 <li><a href="attend.php" class="active">ATTENDANCE MARKER</a></li>
                 <li><a href="note.html" >NOTE SHARING</a></li>
             </ul>
+            </div>
         </nav>
     </div>
     <div class="container">
