@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="attend.css">
     <style>
     body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-seri;
+  background-image: url(attendbg.png); 
+  background-repeat: no-repeat; 
+  background-size: cover;
 }
 
 .container {
@@ -74,6 +77,7 @@ a:hover {
     </style>
 </head>
 <body>
+
     <div>
         <nav>
             <div class="logo">

@@ -67,12 +67,12 @@ $result = $stmt->get_result();
     <style>
 
 <style>
-        body {
+        * {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-image: url(grad.png);
+            background-image: url('todobg.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             height: 100vh;
@@ -124,12 +124,12 @@ $result = $stmt->get_result();
 
         #todo-container {
             color:white;
-            width: 600px;
-            background-color: black;
+            width: 700px;
+            background-color: rgb(119,139,165);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            margin-top: 10%;
+            margin-top: 5%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -191,12 +191,18 @@ $result = $stmt->get_result();
         }
 
         #add-button {
-            background-color: #4caf50;
-            color: light bisque;
+            background-color: rgb(255,255,255);
+            color: black;
             border: none;
             padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
+        }
+        .todo-container {
+            width: 800px;
+            height: 400px;
+            background-color: rgba(174,198,207,0.7);
+            position: absolute;
         }
 
         .delete-button {
@@ -209,7 +215,7 @@ $result = $stmt->get_result();
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('todobg.jpg');">
     <nav>
         <div class="logo">
             <img src="workwise.png" alt="..." height="50%" width="50%">
@@ -222,13 +228,17 @@ $result = $stmt->get_result();
             <li class="nav-li"><a href="cal.html">CALENDAR SCHEDULING</a></li>
         </ul>
     </nav>
+    <br>
+    <br>
+    <br>
+    <h1 style="font-family:'times-new-roman'; text-align: center;" ><b>Prioritized To-Do List</b></h1>
 
     <div id="todo-container">
-        <h2>Prioritized To-Do List</h2>
+        <h3>your lists:</h3>
         
         <ol id="todo-list"></ol>
         
-        <div id="add-task">
+        <div id="add-task"> 
             <input type="text" id="task-input" placeholder="Add a new task" name="task">
             <br>
             <br>
@@ -242,6 +252,7 @@ $result = $stmt->get_result();
     </div>
 
     <center><br><br><h1>PENDING LIST</h1></center>
+    <div class="todo-container">
 
     <ol id="pending-list">
         <?php
@@ -259,6 +270,7 @@ $result = $stmt->get_result();
         }
         ?>
     </ol>
+    </div>
 
     <script>
        function addTask() {
