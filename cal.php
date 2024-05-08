@@ -143,7 +143,7 @@ mysqli_close($con);
         }
 
         nav {
-            background-color: #03062d;
+            background-color: #022954;
             padding: 10px;
             display: flex;
             align-items: center;
@@ -166,16 +166,16 @@ mysqli_close($con);
             margin-right: 20px;
         }
         a {
-            color: #9a9ebe;
+            color: #fff;
             text-decoration: none;
             padding: 10px;
             transition: background-color 0.3s ease;
         }
         a:hover {
-            background-color: #b5bdd7;
+            background-color: #b0b8ce;
         }
         a.active {
-            background-color: #b5bdd7;
+            background-color: #5e6aa4;
         }
     </style>
 </head>
@@ -186,11 +186,11 @@ mysqli_close($con);
                 <img src="workwise.png" alt="..." height="50%" width="50%">
             </div>
             <ul>
-                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.php">HOME</a></li>
                 <li><a href="self.html">SELF</a></li>
                 <li><a href="pomo.html">POMODORO TIMER</a></li>
-                <li><a href="todo.html">TO-DO-LIST</a></li>
-                <li><a href="cal.html" class="active">CALENDAR SCHEDULING</a></li>
+                <li><a href="todo.php">TO-DO-LIST</a></li>
+                <li><a href="cal.php" class="active">CALENDAR SCHEDULING</a></li>
             </ul>
         </nav>
     </div>

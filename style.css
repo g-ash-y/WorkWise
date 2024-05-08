@@ -6,7 +6,7 @@ body {
   text-align: center;
 }
 nav {
-  background-color: #333;
+  background-color: #022954;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -123,13 +123,6 @@ cursor: pointer;
 transform: scale(1.1);
 
 }
-nav {
-  background-color: #333;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
 .logo img {
   width: 100px;
@@ -154,7 +147,10 @@ a {
 }
 
 a.active {
-  background-color: #6369af;
+  background-color: #5e6aa4;
+}
+a:hover{
+  background-color: #b0b8ce;
 }
 .content {
   padding-bottom: 30px;
