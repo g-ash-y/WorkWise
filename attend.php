@@ -4,54 +4,111 @@
     <meta charset="UTF-8">
     <title>Attendance Marker</title>
     <link rel="stylesheet" href="attend.css">
+    <style>
+
+.logo img {
+  size: 100px;
+  width:100px;
+  color: #ccc;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  margin-right: 20px;
+}
+    a{
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+    }
+    a.active {
+        background-color: #555;
+    }
+    
+    nav {
+  background-color: #333;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0%;
+  width: auto;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+    </style>
 </head>
 <body>
+    <div>
+        <nav>
+            <div class="logo">
+                <img src="workwise.png" atl="..." height="50%" width="50%">
+            </div>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="studt.html">STUDY LINK</a></li>
+                <li><a href="chat.html">CHAT</a></li>
+                <li><a href="attend.php" class="active">ATTENDANCE MARKER</a></li>
+                <li><a href="note.html" >NOTE SHARING</a></li>
+            </ul>
+        </nav>
+    </div>
     <div class="container">
-        <h2>Mark Absent for a Specific Date</h2>
-        <!-- Form to select the date and mark attendance -->
+        <h2>Mark Absent</h2>
+        <!-- Form to mark attendance as absent with roll number and date -->
         <form method="post">
-            <label for="date">Select Date:</label>
-            <input type="date" id="date" name="date" required>
-
             <label for="rollno">Roll Number:</label>
             <input type="text" id="rollno" name="rollno" required>
+
+            <label for="attendance_date">Attendance Date:</label>
+            <input type="date" id="attendance_date" name="attendance_date" required>
 
             <button type="submit">Mark Absent</button>
         </form>
 
+        <!-- PHP code for handling form submission -->
         <?php
         // Database connection parameters
-        $servername = "localhost"; // Adjust as needed
-        $username = "root"; // Adjust to your MySQL username
-        $password = ""; // Adjust to your MySQL password
-        $dbname = "learning management sys"; // Adjust to your database name
+        $servername = "localhost"; // Change as needed
+        $username = "root"; // Your MySQL username
+        $password = ""; // Your MySQL password
+        $dbname = "learning management sys"; // Database name with spaces
 
-        // Establish a database connection
+        // Create a database connection
         $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Check if the connection is successful
+        // Check if the connection failed
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Handle form submission to mark absent
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $date = $_POST['date'];
+        // Handle form submission for marking absent
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rollno']) && isset($_POST['attendance_date'])) {
             $rollno = $_POST['rollno'];
-
-            // Ensure the date is formatted correctly to match column names
-            $date_column = str_replace("-", "_", $date);
+            $attendance_date = $_POST['attendance_date'];
 
             // Check if the roll number exists in "namelist"
             $check_sql = "SELECT `name` FROM `namelist` WHERE `rollno` = '$rollno'";
             $result_check = $conn->query($check_sql);
 
             if ($result_check->num_rows > 0) {
-                // If roll number exists, mark it as "Absent" for the given date
-                $update_sql = "UPDATE `dateattend` SET `$date_column` = 'Absent' WHERE `rollno` = '$rollno'";
+                // Insert the absent record into "attendance"
+                $insert_sql = "INSERT INTO `attendance` (`rollno`, `attendance`, `date`) 
+                               VALUES ('$rollno', 'A', '$attendance_date')";
 
-                if ($conn->query($update_sql) === TRUE) {
-                    echo "<p>Roll number $rollno marked as absent for $date.</p>";
+                if ($conn->query($insert_sql) === TRUE) {
+                    echo "<p>Roll number $rollno marked as absent on $attendance_date.</p>";
                 } else {
                     echo "<p>Error: " . $conn->error . "</p>";
                 }
@@ -61,62 +118,70 @@
         }
         ?>
 
-        <button onclick="showAttendance()">Finish</button>
+        <h2>View Attendance</h2>
+        <!-- Form to enter a date to view the attendance -->
+        <form method="post">
+            <label for="view_date">Enter Date:</label>
+            <input type="date" id="view_date" name="view_date" required>
+            <button type="submit" name="show_attendance">Show Attendance</button>
+        </form>
 
-        <div id="attendanceTable" style="display: none;">
-            <h3>Attendance for Selected Date</h3>
+        <div id="attendanceTable">
+            <!-- Display results when form is submitted -->
             <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $date = $_POST['date'];
-                $date_column = str_replace("-", "_", $date);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['show_attendance'])) {
+                $view_date = $_POST['view_date']; // Date entered to view attendance
 
-                // Retrieve all roll numbers from "namelist"
-                $namelist_sql = "SELECT `rollno`, `name` FROM `namelist`";
-                $namelist_result = $conn->query($namelist_sql);
+                // Retrieve roll numbers marked absent on the specified date
+                $absent_sql = "SELECT `rollno` FROM `attendance` WHERE `attendance` = 'A' AND `date` = '$view_date'";
+                $absent_result = $conn->query($absent_sql);
 
-                if ($namelist_result->num_rows > 0) {
-                    echo "<table border='1'>";
-                    echo "<tr>
-                          <th>Roll Number</th>
-                          <th>Name</th>
-                          <th>Attendance</th>
-                          </tr>";
-
-                    // Loop through all roll numbers and check attendance status
-                    while ($row = $namelist_result->fetch_assoc()) {
-                        $rollno = $row['rollno'];
-                        $name = $row['name'];
-
-                        // Determine attendance status for the given date
-                        $attendance_sql = "SELECT `$date_column` FROM `dateattend` WHERE `rollno` = '$rollno'";
-                        $attendance_result = $conn->query($attendance_sql);
-
-                        if ($attendance_result->num_rows > 0) {
-                            $attendance = $attendance_result->fetch_assoc()[$date_column];
-                            $attendance = $attendance == "Absent" ? "Absent" : "Present";
-                        } else {
-                            $attendance = "Present"; // Default to Present if not explicitly marked as Absent
-                        }
-
-                        echo "<tr>
-                              <td>$rollno</td>
-                              <td>$name</td>
-                              <td>$attendance</td>
-                              </tr>";
+                if ($absent_result === false) {
+                    echo "<p>Error in query: " . $conn->error . "</p>";
+                } else {
+                    $absent_rollnos = [];
+                    while ($row = $absent_result->fetch_assoc()) {
+                        $absent_rollnos[] = $row['rollno']; // Corrected array syntax
                     }
 
-                    echo "</table>";
-                } else {
-                    echo "<p>No roll numbers found in namelist.</p>";
+                    // Retrieve all roll numbers from "namelist"
+                    $namelist_sql = "SELECT `rollno`, `name` FROM `namelist`";
+                    $namelist_result = $conn->query($namelist_sql);
+
+                    if ($namelist_result->num_rows > 0) {
+                        echo "<p>Attendance for date: $view_date</p>"; // Display the specified date
+                        echo "<table border='1'>";
+                        echo "<tr>
+                              <th>Roll Number</th>
+                              <th>Name</th>
+                              <th>Attendance</th>
+                              </tr>";
+
+                        while ($row = $namelist_result->fetch_assoc()) {
+                            $rollno = $row['rollno'];
+                            $name = $row['name'];
+                            $attendance = in_array($rollno, $absent_rollnos) ? 'Absent' : 'Present';
+
+                            echo "<tr>
+                                  <td>$rollno</td>
+                                  <td>$name</td>
+                                  <td>$attendance</td>
+                                  </tr>";
+                        }
+
+                        echo "</table>";
+                    } else {
+                        echo "<p>No roll numbers found in namelist.</p>";
+                    }
                 }
             }
             ?>
-
         </div>
     </div>
 
     <script>
     function showAttendance() {
+        // Display the complete attendance table when "Show Attendance" is clicked
         document.getElementById('attendanceTable').style.display = 'block';
     }
     </script>
