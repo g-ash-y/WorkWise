@@ -1,25 +1,22 @@
 <?php
-// Part 1: Database Connection and Message Insertion
+// Database Connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "learning management sys";
 
-$servername = "localhost"; // Change to your server
-$username = "root"; // Change to your database username
-$password = ""; // Change to your database password
-$dbname = "learning management sys"; // Your database name
-
-// Create a connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Insert the message into the "chatbox" table if POST data is present
+// Insert a message into the "chatbox" if POST data is present
 if (isset($_POST['message'])) {
     $chat = $_POST['message'];
     $date = date('Y-m-d'); // Current date
     $time = date('H:i:s'); // Current time
-    
+
     $sql = "INSERT INTO chatbox (chat, date, time) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sss', $chat, $date, $time);
@@ -33,58 +30,83 @@ if (isset($_POST['message'])) {
     $stmt->close();
 }
 
-$conn->close(); // Close the database connection
+// Retrieve chat history from the "chatbox"
+$chat_history = [];
+$sql = "SELECT chat, date, time FROM chatbox ORDER BY date, time";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $chat_history[] = array(
+            'chat' => $row['chat'],
+            'date' => $row['date'],
+            'time' => $row['time']
+        );
+    }
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Teacher Chatroom</title>
+    <title>Chat Room</title>
     <style>
-        /* Part 2: CSS Styling */
         body {
-            background-image: url('classroom.jpeg');
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: rgb(68, 107, 179);
+            
+            
         }
 
         .chat-container {
             max-width: 600px;
-            margin: 50px auto;
+            margin: 20px auto;
             padding: 20px;
             border: 1px solid #98a6db;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(4, 1, 24, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: rgb(169, 201, 247);
-            margin-top: 10px;
         }
 
         .messages {
             height: 300px;
-            overflow-y: scroll;
+            overflow-y: auto;
             border: 1px solid #323557;
             padding: 10px;
             margin-bottom: 10px;
+            background-color: white;
+        }
+
+        .chat-history {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #323557;
+            padding: 10px;
+            background-color: lightgray;
+            margin-top: 10px;
         }
 
         input[type="text"] {
-            width: calc(100% - 70px);
+            width: calc(100% - 80px);
             padding: 10px;
-            margin-right: 10px;
             border: 1px solid #a6aed3;
             border-radius: 5px;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 10px;
             background-color: rgb(164, 184, 241);
             color: black;
-            border: none;
             border-radius: 15px;
+            border: none;
             cursor: pointer;
+        }
+
+        button:hover {
+            background-color: lightblue;
         }
         nav {
   background-color: #022954;
@@ -164,31 +186,37 @@ a:hover {
             </div>
         </nav>
     </div>
-    <h1 style="text-align: center; margin-top: 20px; margin-bottom: 15px;"><b>CHAT ROOM</b></h1>
+    <br>
+    <br>
+    <div style="padding: 20px;">
+    <h1 style="text-align: center;">CHAT ROOM</h1>
     
     <div class="chat-container">
+        <!-- Heading for the Chat Room -->
+        
+
         <div class="messages" id="messages">
-            <!-- Messages will be appended here -->
+            <!-- Display new messages here -->
         </div>
+        
         <input type="text" id="messageInput" placeholder="Type your message...">
         <button onclick="sendMessage()">Send</button>
+        <button onclick="showChatHistory()">Show Chat History</button> <!-- Button to fetch chat history -->
     </div>
 
-    <script>
-        // Part 3: JavaScript for Chat Functionality
-        const messagesData = [
-            { sender: 'Teacher', content: 'Welcome to the chatroom!' },
-            { sender: 'Student', content: 'Hi teacher!' }
-        ];
+    <div class="chat-history" id="chatHistory">
+        <!-- Heading for the Chat History -->
+        <h2>Chat History</h2>
 
-        function displayMessages() {
+        <!-- Display chat history here -->
+    </div>
+    </div>
+    <script>
+        function appendMessage(date, time, content) {
             const messagesContainer = document.getElementById('messages');
-            messagesContainer.innerHTML = '';
-            messagesData.forEach(message => {
-                const messageDiv = document.createElement('div');
-                messageDiv.innerHTML = `<strong>${message.sender}:</strong> ${message.content}`;
-                messagesContainer.appendChild(messageDiv);
-            });
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = `<strong>${date} ${time}:</strong> ${content}`;
+            messagesContainer.appendChild(messageDiv);
         }
 
         function sendMessage() {
@@ -206,15 +234,27 @@ a:hover {
                 .then(response => response.text())
                 .then(data => {
                     console.log(data);
-                    messagesData.push({ sender: 'Teacher', content: messageContent });
-                    displayMessages();
+                    const now = new Date();
+                    const date = now.toISOString().split('T')[0];
+                    const time = now.toLocaleTimeString();
+                    appendMessage(date, time, messageContent);
                     messageInput.value = ''; // Clear the input field
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => console.error('Error sending message:', error));
             }
         }
 
-        displayMessages(); // Initialize the display
+        function showChatHistory() {
+            const chatHistory = <?php echo json_encode($chat_history); ?>; // Fetch chat history from PHP
+            const chatHistoryContainer = document.getElementById('chatHistory');
+
+            chatHistoryContainer.innerHTML = ''; // Clear existing chat history
+            chatHistory.forEach(chat => {
+                const chatDiv = document.createElement('div');
+                chatDiv.innerHTML = `<strong>${chat.date} ${chat.time}:</strong> ${chat.chat}`;
+                chatHistoryContainer.appendChild(chatDiv);
+            });
+        }
     </script>
 </body>
 </html>
