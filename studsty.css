@@ -1,41 +1,45 @@
 body {
+    background-image: url('classroom.jpeg');
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color:aquamarine ;
+    background-color:rgb(68, 107, 179) ;
 }
 
 .chat-container {
     max-width: 600px;
     margin:50px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #98a6db;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: rgb(157, 155, 155);
+    box-shadow: 0 0 10px rgba(4, 1, 24, 0.1);
+    background-color: rgb(169, 201, 247);
     margin-top: 10px;
 }
 
 .messages {
     height: 300px;
     overflow-y: scroll;
-    border: 1px solid #ccc;
+    border: 1px solid #323557;
     padding: 10px;
     margin-bottom: 10px;
+}
+#messageinput{
+  background-color: #70b8d7;
 }
 
 input[type="text"] {
     width: calc(100% - 70px);
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #aba9a9;
+    border: 1px solid #a6aed3;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
 button {
     padding: 10px 20px;
-    background-color: lightskyblue;
+    background-color: rgb(164, 184, 241);
     color: black;
     border: none;
     border-radius: 15px;
@@ -43,16 +47,16 @@ button {
 }
 
 a {
-    color: #fff;
+    color: #e9ebef;
     text-decoration: none;
     padding: 10px;
     transition: background-color 0.3s ease;
   }
   a:hover {
-    background-color: #555;
+    background-color: #8d9ccf;
   }
   a.active {
-    background-color: #555;
+    background-color: #8e99cf;
   }
   a {
     color: #fff;
@@ -62,9 +66,9 @@ a {
   }
   
   a:hover {
-    background-color: #555;
+    background-color: #70b8d7;
   }
   
   a.active {
-    background-color: #555;
+    background-color: #88b8df;
   }

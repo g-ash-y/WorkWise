@@ -6,25 +6,51 @@
     <title>Interactive Calendar with Events</title>
     <style>
         body {
-            background-size: 100%;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url(grad.png);
+            background-image: url(calpic2.jpg);
             background-repeat: no-repeat;
-            background-size: cover;
-          
+            background-size: cover; /* Cover the entire viewport */
+           background-position: center;
+           margin: 0;
+           padding: 0;
+       }
+       H1{
+           font-style: italic;
+           color: rgb(21, 12, 72);
+       }
 
-        }
-        H1{
-            font-style: italic;
-            color: rgb(75, 25, 35);
-        }
+       #calendarContainer {
+           width: 300px;
+           margin: 0 auto;
+           position: relative;
+       }
 
-        #calendar {
-            width: 300px;
-            margin: 0 auto;
-        }
+       #calendarHeader {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 10px;
+       }
+
+       #prevMonth, #nextMonth {
+           background-color: #2948a8;
+           color: #fff;
+           border: none;
+           padding: 5px 10px;
+           border-radius: 5px;
+           cursor: pointer;
+           outline: none;
+       }
+
+       #prevMonth:hover, #nextMonth:hover {
+           background-color: #7f8bc9;
+       }
+
+       #monthYearDisplay {
+           font-size: 18px;
+           font-weight: bold;
+           color: #333;
+       }
 
         table {
             width: 100%;
@@ -33,18 +59,18 @@
         }
 
         th, td {
-            border: 1px solid #ddd;
+            border: 2px solid #040413;
             padding: 10px;
             text-align: center;
         }
 
         th {
-            background-color: #9e8c8c;
+            background-color: #99aeed;
         }
 
         td {
             cursor: pointer;
-            background-color: beige;
+            background-color: rgb(213, 217, 235);
         }
 
         #eventForm {
@@ -71,12 +97,11 @@
         }
         input{
             text-align: center;
-            color: rgb(40, 8, 8);
+            color: rgb(6, 4, 100);
         }
-        
 
         nav {
-            background-color: #333;
+            background-color: #03062d;
             padding: 10px;
             display: flex;
             align-items: center;
@@ -85,11 +110,9 @@
             width: auto;
             margin-left: 0%;
             margin-right: 0%;
-          
-       
         }
         .logo img {
-            width: 100px;color: #ccc;
+            width: 100px;color: #acaebc;
         }
         ul {
             list-style-type: none;
@@ -101,16 +124,16 @@
             margin-right: 20px;
         }
         a {
-            color: #fff;
+            color: #9a9ebe;
             text-decoration: none;
             padding: 10px;
             transition: background-color 0.3s ease;
         }
         a:hover {
-            background-color: #555;
+            background-color: #b5bdd7;
         }
         a.active {
-            background-color: #555;
+            background-color: #b5bdd7;
         }
     </style>
 </head>
@@ -118,7 +141,7 @@
     <div>
         <nav>
             <div class="logo">
-                <img src="workwise.png" atl="..." height="50%" width="50%">
+                <img src="workwise.png" alt="..." height="50%" width="50%">
             </div>
             <ul>
                 <li><a href="index.html">HOME</a></li>
@@ -129,11 +152,19 @@
             </ul>
         </nav>
     </div>
-   <center><h1>CALENDER SCHEDULER</h1></center>
-   <br>
-   <center><h style="text-align: center;">Click on any date to schedule the calendar.</h></center>
-   <br>
-    <div id="calendar"></div>
+    <b>
+    <center><h1>CALENDER SCHEDULER</h1></center></b>
+    <br>
+    <center><h style="text-align: center;">Click on any date to schedule the calendar.</h></center>
+    <br>
+    <div id="calendarContainer">
+        <div id="calendarHeader">
+            <button id="prevMonth">&lt; Previous</button>
+            <h2 id="monthYearDisplay"></h2>
+            <button id="nextMonth">Next &gt;</button>
+        </div>
+        <div id="calendar"></div>
+    </div>
     <div id="eventForm">
         <label for="eventDate">Event Date:</label>
         <input type="date" id="eventDate" required>
@@ -145,10 +176,14 @@
        <center> <h2>Events</h2></center>
         <ul id="eventsByDate" style="padding-left: 40%;"></ul>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarContainer = document.getElementById('calendar');
+            var calendarHeader = document.getElementById('calendarHeader');
+            var monthYearDisplay = document.getElementById('monthYearDisplay');
+            var prevMonthButton = document.getElementById('prevMonth');
+            var nextMonthButton = document.getElementById('nextMonth');
             var eventForm = document.getElementById('eventForm');
             var eventDateInput = document.getElementById('eventDate');
             var eventNameInput = document.getElementById('eventName');
@@ -196,7 +231,34 @@
                         showEventForm(cell.getAttribute('data-date'));
                     });
                 });
+
+                // Update month and year display
+                monthYearDisplay.textContent = new Date(year, month).toLocaleString('default', { month: 'long' }) + ' ' + year;
             }
+
+            // Function to switch to the previous month
+            function prevMonth() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar(currentMonth, currentYear);
+            }
+
+            // Function to switch to the next month
+            function nextMonth() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar(currentMonth, currentYear);
+            }
+
+            // Event listeners for previous and next month buttons
+            prevMonthButton.addEventListener('click', prevMonth);
+            nextMonthButton.addEventListener('click', nextMonth);
 
             function showEventForm(date) {
                 eventDateInput.value = date;
