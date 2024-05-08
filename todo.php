@@ -202,7 +202,6 @@ $result = $stmt->get_result();
             width: 800px;
             height: 400px;
             background-color: rgba(174,198,207,0.7);
-            position: absolute;
         }
 
         .delete-button {

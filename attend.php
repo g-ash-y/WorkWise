@@ -179,24 +179,24 @@ a:hover {
                     $namelist_result = $conn->query($namelist_sql);
 
                     if ($namelist_result->num_rows > 0) {
-                        echo "<p>Attendance for date: $view_date</p>"; // Display the specified date
-                        echo "<table border='1'>";
-                        echo "<tr>
-                              <th>Roll Number</th>
+                        echo "<p>&nbsp;&nbsp;<br>Attendance for date: $view_date</p><br>"; // Display the specified date
+                        echo " <center><table border='1'></center>";
+                        echo " <center><tr>
+                        <th>Roll Number</th>
                               <th>Name</th>
                               <th>Attendance</th>
-                              </tr>";
+                              </tr> </center>";
 
                         while ($row = $namelist_result->fetch_assoc()) {
                             $rollno = $row['rollno'];
                             $name = $row['name'];
                             $attendance = in_array($rollno, $absent_rollnos) ? 'Absent' : 'Present';
 
-                            echo "<tr>
+                            echo " <center><tr>
                                   <td>$rollno</td>
                                   <td>$name</td>
                                   <td>$attendance</td>
-                                  </tr>";
+                                  </tr> </center>";
                         }
 
                         echo "</table>";
