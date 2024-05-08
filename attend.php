@@ -68,7 +68,7 @@ a.active {
 }
 
 a:hover {
-  background: #555;
+  background: #b0b8ce;
 }
 
     </style>
