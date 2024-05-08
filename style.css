@@ -21,7 +21,7 @@ nav {
 .logo img {
   size: 100PX;
   width:200px;
-  color: #ccc;
+  color: #5e6aa4;
 }
 ul {
   list-style-type: none;
@@ -34,31 +34,31 @@ li {
 }
 
 a .button :hover{
-  background: gray;
+  background: rgb(47, 24, 194);
   
 }
 #button {
-   border-color: wheat;
+   border-color: rgb(151, 163, 222);
    margin-top: 50px; 
    align-items: center;
    align-self: center;
 
 }
 #button :hover{
-  background: gray;
+  background: rgb(61, 81, 194);
 }
 .button{
   margin-top: 50%;
   margin-left: 30px;
-  box-shadow: #555;
+  box-shadow: #375498;
 
 }
 .button :hover {
   background: rgb(232, 224, 209);
-  box-shadow: #555;
+  box-shadow: #576394;
 }
 .button :active {
-  background-color: #555;
+  background-color: #334265;
   box-shadow: #afaeae;
 }
 
@@ -79,7 +79,7 @@ button {
   cursor: pointer;
 }
 .image-container{
-  background-color: #afaeae;
+  background-color: #3b56b1;
   text-align: center;
   height:150px;
 }
@@ -156,7 +156,7 @@ a {
 }
 
 a.active {
-  background-color: #555;
+  background-color: #6369af;
 }
 .content {
   padding-bottom: 30px;
