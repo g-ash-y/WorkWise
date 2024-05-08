@@ -149,9 +149,7 @@ a {
 a.active {
   background-color: #5e6aa4;
 }
-a:hover{
-  background-color: #b0b8ce;
-}
+
 .content {
   padding-bottom: 30px;
 }
