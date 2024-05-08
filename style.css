@@ -131,6 +131,15 @@ cursor: pointer;
 transform: scale(1.1);
 
 }
+.std-container {
+  border: 2px solid #424078;
+  background-color: #eaebfe;
+  display: block; /* Change from inline-block to block */
+  margin-top: 50px;
+  padding: 100px;
+  width: 100%;
+  overflow: hidden;
+}
 
 .logo img {
   width: 100px;
@@ -176,7 +185,7 @@ a.active {
   position:relative;
   bottom: 0;
   width: 100%;
-  background-color: #333;
+  background-color:#022954 ;
   color: white;
   text-align: center;
   padding: 15px;
