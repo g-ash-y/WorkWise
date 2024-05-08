@@ -79,7 +79,7 @@ $result = $stmt->get_result();
         }
 
         nav {
-            background-color: #333;
+            background-color:  #022954;;
             padding: 10px;
             display: flex;
             align-items: center;
@@ -115,11 +115,11 @@ $result = $stmt->get_result();
         }
 
         a:hover {
-            background-color: #555;
+            background-color:  rgb(61, 81, 194);;
         }
 
         a.active {
-            background-color: #555;
+            background-color:  rgb(61, 81, 194);;
         }
 
         #todo-container {
@@ -233,7 +233,7 @@ $result = $stmt->get_result();
     <h1 style="font-family:'times-new-roman'; text-align: center;" ><b>Prioritized To-Do List</b></h1>
 
     <div id="todo-container">
-        <h3>your lists:</h3>
+        <h3>YOUR LIST:</h3>
         
         <ol id="todo-list"></ol>
         
@@ -251,7 +251,7 @@ $result = $stmt->get_result();
     </div>
 
     <center><br><br><h1>PENDING LIST</h1></center>
-    <div class="todo-container">
+   <center> <div class="todo-container">
 
     <ol id="pending-list">
         <?php
@@ -269,7 +269,7 @@ $result = $stmt->get_result();
         }
         ?>
     </ol>
-    </div>
+    </div></center>
 
     <script>
        function addTask() {
