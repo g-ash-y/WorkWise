@@ -5,6 +5,14 @@ body {
 .container {
   text-align: center;
 }
+.maincont {
+  max-width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  margin: 0 auto;
+  padding: 20px;
+}
 nav {
   background-color: #022954;
   padding: 10px;
@@ -138,9 +146,11 @@ ul {
 li {
   margin-right: 20px;
 }
-
+.heading{
+    text-shadow: 2px 2px 4px rgba(198, 251, 253, 0.5);
+}
 a {
-  color: #fff;
+  color: #eaf1fd;
   text-decoration: none;
   padding: 10px;
   transition: background-color 0.3s ease;
@@ -152,6 +162,14 @@ a.active {
 
 .content {
   padding-bottom: 30px;
+}
+.newsec {
+  border: 2px solid #282e5c;
+  background-color: #eaebfe;
+  margin: 0 auto;
+  display: block; /* Change from inline-block to block */
+  padding: 20px;
+  width: 50%;
 }
 
 .footer {
