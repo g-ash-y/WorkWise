@@ -87,7 +87,7 @@ a:hover {
             <ul>
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="studt.html">STUDY LINK</a></li>
-                <li><a href="chat.html">CHAT</a></li>
+                <li><a href="chat.php">CHAT</a></li>
                 <li><a href="attend.php" class="active">ATTENDANCE MARKER</a></li>
                 <li><a href="note.html" >NOTE SHARING</a></li>
             </ul>
