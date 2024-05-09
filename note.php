@@ -26,6 +26,7 @@ $username = $_SESSION['usernamein'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
     <style>
       body {
@@ -98,6 +99,7 @@ $username = $_SESSION['usernamein'];
             background-color: red;
             padding: 5px 10px;
             border-radius: 5px;
+            cursor: pointer; /* Add cursor pointer */
         }
 
         .delete-link {
@@ -110,7 +112,7 @@ $username = $_SESSION['usernamein'];
 <div>
   <nav>
       <div class="logo">
-          <img src="workwise.png" atl="..." height="50%" width="50%">
+          <img src="workwise.png" alt="..." height="50%" width="50%">
       </div>
       <ul>
           <li><a href="index.html">HOME</a></li>
@@ -156,7 +158,7 @@ $username = $_SESSION['usernamein'];
         $file_name = $row['image'];
         $file_path = "pdf/".$file_name;
         echo "<div><a href='$file_path' class='file-link' target='_blank'>$file_name</a> ";
-        echo "<div class='delete-container' onclick='deleteFile(\"$file_name\")'>Delete</div></div>";
+        echo "<div class='delete-container' data-file='$file_name'>Delete</div></div>";
     
       }
     ?>
@@ -164,41 +166,27 @@ $username = $_SESSION['usernamein'];
 </div>
 
 <script>
-  function uploadFile() {
-    var fileInput = document.getElementById("fileInput");
-    var file = fileInput.files[0];
-    if (!file) {
-      alert("Please select a file.");
-      return;
-    }
-    var fileLinkContainer = document.getElementById("fileLinkContainer");
-    var fileLink = document.createElement("button");
-    fileLink.classList.add("file-link");
-    fileLink.textContent = file.name;
-    fileLink.onclick = function() {
-      window.open(URL.createObjectURL(file), '_blank');
-    };
-    fileLinkContainer.appendChild(fileLink);
-    fileInput.value = "";
-  }
-  function deleteFile(filename) {
-    if (confirm("Are you sure you want to delete this file?")) {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          if (xhr.status == 200) {
-            // Update UI or show success message if needed
-            location.reload(); // Reload the page after successful deletion
-          } else {
-            // Handle error
-            console.error('Error:', xhr.status);
+  $(document).ready(function() {
+    $(".delete-container").click(function() {
+      var fileToDelete = $(this).data("file");
+      if (confirm("Are you sure you want to delete this file?")) {
+        $.ajax({
+          type: "GET",
+          url: "delete.php",
+          data: { file: fileToDelete },
+          success: function(response) {
+            alert(response); // Display response from delete.php
+            // Remove the deleted file from the file list
+            $("a.file-link[href='pdf/" + fileToDelete + "']").parent().remove();
+          },
+          error: function(xhr, status, error) {
+            alert("Error deleting file: " + error);
           }
-        }
-      };
-      xhr.open("GET", "delete.php?file=" + filename, true);
-      xhr.send();
-    }
-  }
+        });
+      }
+    });
+  });
 </script>
+
 </body>
 </html>
