@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cute Cactus Loader</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f3f3f3; /* Background color of the page */
+    }
+    
+    .loader-container {
+        width: 100px;
+        height: 100px;
+        position: relative;
+    }
+    
+    .cactus {
+        width: 100%;
+        height: 100%;
+        background-image: url('cute.gif'); /* Replace 'cactus.gif' with your cactus animation */
+        background-size: cover;
+        animation: spin 2s linear infinite; /* Adjust animation duration and timing function */
+    }
+    
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+</style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="cactus"></div>
+    </div>
+</body>
+</html>
