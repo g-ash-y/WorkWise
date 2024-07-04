@@ -28,11 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(mysqli_num_rows($result) == 1){
         $_SESSION['user_logged_in'] = true;
         $_SESSION['usernamein'] = $usernamein;
+        $_SESSION['user_type'] = $user_type; 
 
         $row = mysqli_fetch_assoc($result);
 
         // Store the 'name' value from the fetched row into session
         $_SESSION['name'] = $row['name'];
+        //$_SESSION['usernamein'] = $row['username']; // Store username from database
+        $_SESSION['user_type'] = $row['user_type'];
        // Store reg_no in session for later use
         header('location:index.php');
     } else{

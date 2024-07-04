@@ -5,7 +5,7 @@ const timerEl = document.getElementById("timer");
 const breakTimeEl = document.getElementById("break");
 
 let interval;
-let timeLeft = 1500; // 25 minutes
+let timeLeft = parseInt(localStorage.getItem('timeLeft')) || 1500; // 25 minutes in seconds
 
 function updateTimer() {
   let minutes = Math.floor(timeLeft / 60);
@@ -25,6 +25,8 @@ function startTimer() {
         interval = null;
       }
     }, 1000);
+    localStorage.setItem('timeLeft', timeLeft); // Store timeLeft in localStorage
+    localStorage.setItem('interval', interval); // Store interval in localStorage
   }
 }
 
@@ -43,12 +45,15 @@ function breakTimeFunc() {
         interval = null;
       }
     }, 1000);
+    localStorage.setItem('timeLeft', timeLeft); // Store timeLeft in localStorage
+    localStorage.setItem('interval', interval); // Store interval in localStorage
   }
 }
 
 function stopTimer() {
   clearInterval(interval);
   interval = null;
+  localStorage.removeItem('interval'); // Remove interval from localStorage
 }
 
 function resetTimer() {
@@ -56,10 +61,18 @@ function resetTimer() {
   interval = null;
   timeLeft = 1500; // Reset to 25 minutes
   updateTimer();
+  localStorage.removeItem('timeLeft'); // Remove timeLeft from localStorage
+  localStorage.removeItem('interval'); // Remove interval from localStorage
+}
+
+// Check if there's a stored interval, resume timer if it exists
+const storedInterval = parseInt(localStorage.getItem('interval'));
+if (storedInterval) {
+  interval = storedInterval;
+  updateTimer();
 }
 
 startEl.addEventListener("click", startTimer);
 stopEl.addEventListener("click", stopTimer);
 resetEl.addEventListener("click", resetTimer);
 breakTimeEl.addEventListener("click", breakTimeFunc);
-

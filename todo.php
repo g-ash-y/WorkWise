@@ -220,11 +220,11 @@ $result = $stmt->get_result();
             <img src="workwise.png" alt="..." height="50%" width="50%">
         </div>
         <ul class="nav-ul">
-            <li class="nav-li"><a href="index.html">HOME</a></li>
+            <li class="nav-li"><a href="index.php">HOME</a></li>
             <li class="nav-li"><a href="self.html">SELF</a></li>
             <li class="nav-li"><a href="pomo.html">POMODORO TIMER</a></li>
             <li class="nav-li"><a href="todo.php" class="active">TO-DO-LIST</a></li>
-            <li class="nav-li"><a href="cal.html">CALENDAR SCHEDULING</a></li>
+            <li class="nav-li"><a href="cal.php">CALENDAR SCHEDULING</a></li>
         </ul>
     </nav>
     <br>
