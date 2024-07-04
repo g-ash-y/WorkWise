@@ -117,7 +117,9 @@ $username = $_SESSION['usernamein'];
       <ul>
           <li><a href="index.html">HOME</a></li>
           <li><a href="studt.html">STUDY LINK</a></li>
+          <!--
           <li><a href="chat.html">CHAT</a></li>
+          -->
           <li><a href="attend.php">ATTENDANCE MARKER</a></li>
           <li><a href="note.html" class="active">NOTE SHARING</a></li>
       </ul>

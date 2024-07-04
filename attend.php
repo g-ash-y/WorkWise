@@ -89,7 +89,9 @@ a:hover {
                 <ul>
                     <li><a href="index.html">HOME</a></li>
                     <li><a href="studt.html">STUDY LINK</a></li>
+                    <!--
                     <li><a href="chat.php">CHAT</a></li>
+                    -->
                     <?php
                     // Check user_type to determine which links to display
                     session_start();
